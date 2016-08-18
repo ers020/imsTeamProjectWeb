@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 import javax.servlet.ServletContext;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.collections.set.ListOrderedSet;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,7 @@ import com.revature.beans.Address;
 import com.revature.beans.Client;
 import com.revature.beans.Invoice;
 import com.revature.beans.Product;
+import com.revature.dataAccess.DataLayerAccess;
 
 @Controller
 public class AjaxControllers implements ServletContextAware, InitializingBean
@@ -30,7 +33,7 @@ public class AjaxControllers implements ServletContextAware, InitializingBean
 	@Autowired
 	private ServletContext servletContext; //instance var
 	
-	private List<Client> clients = new Vector<Client>();
+	private Set<Client> clients = new DataLayerAccess().allClients();
 
 	@RequestMapping(
 			method=RequestMethod.GET, 
@@ -38,7 +41,7 @@ public class AjaxControllers implements ServletContextAware, InitializingBean
 			produces="application/json")
 	@ResponseBody	// write return value directly to HTTP response
 					// in the specified content-type (produces=content-type)
-	public List<Client> getClients()
+	public Set<Client> getClients()
 	{
 		return clients;
 	}
@@ -56,14 +59,17 @@ public class AjaxControllers implements ServletContextAware, InitializingBean
 		}
 		
 		@SuppressWarnings("unchecked")
-		Vector<Client> clients = 
-				(Vector<Client>)this.servletContext.getAttribute("clients");
+		Set<Client> clients = (Set<Client>)this.servletContext.getAttribute("clients");
 		clients.add(client);
+		
 		this.servletContext.setAttribute("Clients", clients); //update peeps
+		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("clientView"); // view.jsp IRVR
 		mv.addObject("success", "Successfully added a Client!"); // request-scoped variables
+		
 		request.getSession().setAttribute("user", "Dan Pickles");
+		
 		return mv;
 	}
 	
@@ -80,14 +86,17 @@ public class AjaxControllers implements ServletContextAware, InitializingBean
 		}
 		
 		@SuppressWarnings("unchecked")
-		Vector<Invoice> invoices = 
-			(Vector<Invoice>)this.servletContext.getAttribute("people");
+		Set<Invoice> invoices = (Set<Invoice>)this.servletContext.getAttribute("invoices");
 		invoices.add(invoice);
+
 		this.servletContext.setAttribute("Invoices", invoices); //update peeps
+		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("invoiceView"); // view.jsp IRVR
 		mv.addObject("success", "Successfully added invoice!"); // request-scoped variables
+		
 		request.getSession().setAttribute("user", "Dan Pickles");
+		
 		return mv;
 	}
 	
@@ -104,14 +113,17 @@ public class AjaxControllers implements ServletContextAware, InitializingBean
 		}
 		
 		@SuppressWarnings("unchecked")
-		Vector<Product> products = 
-			(Vector<Product>)this.servletContext.getAttribute("product");
+		Vector<Product> products = (Vector<Product>)this.servletContext.getAttribute("product");
 		products.add(product);
+		
 		this.servletContext.setAttribute("Products", products); //update peeps
+		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("productView"); // view.jsp IRVR
 		mv.addObject("success", "Successfully added product!"); // request-scoped variables
+		
 		request.getSession().setAttribute("user", "Dan Pickles");
+		
 		return mv;
 	}
 	
@@ -123,11 +135,27 @@ public class AjaxControllers implements ServletContextAware, InitializingBean
 		
 		switch (classType)
 		{
-		case "Address":	//Do stuff
+		case "Address":	//do search by address
 			break;
-		case "String":	//Do stuff
+		case "String":	
+			{
+				if(String.valueOf(obj).contains("@"))
+				{
+					//do search by email
+				}
+				
+				if(String.valueOf(obj).contains("[0-9]"))
+				{
+					//do search by address
+				}
+				
+				else
+				{
+					//do search by name
+				}
+			}
 			break;
-		case "Integer":	//Do stuff
+		case "Integer":	//do search by address and id
 			break;
 		default:break;
 		}
