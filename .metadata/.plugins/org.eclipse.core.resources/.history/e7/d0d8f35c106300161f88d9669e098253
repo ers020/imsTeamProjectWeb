@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.revature.beans.Employee" table="HIBERNATE_EMPLOYEE">
+		<id name="id" type="int"> <!-- bean property -->
+			<column name="ORDER_NUMBER" /> <!-- table column -->
+			<generator class="sequence" /> <!-- uses default: HIBERNATE_SEQUENCE -->
+		</id>
+		<property name="subtotal" type="double">
+			<column name="SUBTOTAL" />
+		</property>
+		<property name="date" type="java.util.Date">
+			<column name="PURCHASE_DATE" />
+		</property>
+		<property name="taxes" type="double">
+			<column name="TAXES" />
+		</property>
+		<property name="total" type="double">
+			<column name="ORDER_TOTAL" />
+		</property>
+		<property name="clientId" type="int">
+			<column name="CLIENT_ID" />
+		</property>
+		<!-- SETS? -->
+	</class>
+</hibernate-mapping>

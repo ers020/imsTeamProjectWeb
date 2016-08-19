@@ -1,0 +1,18 @@
+package com.revature.data;
+
+import org.hibernate.Session;
+
+import com.revature.beans.Pickle;
+
+public class DAO {
+	
+	private Session session;
+	
+	public DAO(Session session){
+		this.session = session;
+	}
+	
+	public void save(Pickle pickle){
+		
+	}
+}

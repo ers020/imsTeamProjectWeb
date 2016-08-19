@@ -1,0 +1,11 @@
+package com.revature.annotated.beans;
+
+import org.springframework.stereotype.Component;
+
+@Component("bd")
+public class BusinessDelegate {
+	
+	public BusinessDelegate(){
+		System.out.println("Instantiating BusinessDelegate");
+	}
+}

@@ -1,0 +1,20 @@
+package com.revature.spring;
+
+
+//needs a DAO
+public class DataService {
+
+	private DAO dao;
+
+	// Setter-injection
+	public void setDao(DAO dao) {
+		this.dao = dao;
+	}
+	
+	public void foo(){
+		dao.crud();
+	}
+	
+	
+	
+}

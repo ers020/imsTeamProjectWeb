@@ -1,0 +1,147 @@
+/*CSS page for ERS web application*/
+
+*{
+	font-family: 'Crimson Text', serif;
+	color: #000000;
+}
+
+body{
+	background-color: #000080;
+}
+
+.container{
+	margin-top: -5px;
+	background-color: #e6ffee;
+	border: 1px, solid, #000;
+	box-shadow: 10px 10px 5px #00004d;
+	border-radius: 15px;
+	width: 95%;
+	padding: 10px;
+}
+
+table{
+	text-align: center;
+	font-weight: bold;
+}
+
+.main{
+	margin: 0 auto;
+	text-align: center;
+	font-weight: bold;
+}
+
+h1, h2, h3, h4, h5, h6{
+	text-align: center;
+	font-weight: bold;
+}
+
+li > a{
+
+	color: #000000;
+	font-weight: bold;
+}
+
+.btn{
+	center: true;
+	text-align: center;
+	margin-right: 10px;
+}
+
+.nav-pills{
+	center: true;
+	
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  color: #000000;
+  font-weight: bold;
+  background-color: #cc3300;
+
+  }
+  
+.nav-tabs-justified > .active > a,
+.nav-tabs-justified > .active > a:hover,
+.nav-tabs-justified > .active > a:focus {
+  border: 1px solid #000;
+}
+
+
+img{
+	height: 50%;
+	width: 50%;
+	
+}
+
+.spn1{
+	
+	margin: 20px 0px 20px 20px;
+	float: left;
+}
+
+.spn2 {
+	margin: 20px 0px 20px 0px;
+	float: left;
+	
+}
+
+.header{
+
+	
+	padding-bottom: 20px;
+	
+}
+
+.nav{
+	margin: 0 auto 0 auto;
+	float: top;
+	center: true;
+	text-align: center;
+}
+
+.footer{
+	padding-top: 10px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.login, .claim{
+	margin: 0 auto 0 auto;
+	text-align: center;
+	padding-top: 10px;
+}
+
+td {
+	margin-top: 10px;
+	padding-bottom: 5%;
+
+}
+
+.h1-error{
+	color: red;
+}
+
+.imgDiv{
+	margin: 0 auto 0 auto;
+	padding-bottom: 15px;
+}
+
+.bottom{
+	text-align: center;
+	
+}
+
+.error{
+	color:red;
+}
+
+table.dataTable tbody tr{
+	background-color: #e6ffee;
+}
+
+.success-img, .imgDiv{
+	width: 50%;
+	height:50%;
+	margin: 0 auto 0 auto;
+}

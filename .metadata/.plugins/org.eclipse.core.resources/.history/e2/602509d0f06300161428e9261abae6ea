@@ -1,0 +1,126 @@
+package com.revature.beans;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.*;
+
+//THIS BEAN INITIALIZES NEW PRODUCT ORDERS PER THE PO_LINE TABLE
+//NOT TO BE CONFUSED WITH THE PURCHASE ORDER TABLE
+
+@Entity
+@Table(name="BEARDO_ORDER_INVOICE")  //FORMERLY KNOWN AS "IMS_PO_LINE"
+public class Invoice 
+{
+	/*@Id
+	@Column(name="ORDER_NUMBER")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INVOICE_ID_GEN")
+	private int orderId;
+									//I'M NOT SURE IF WE STILL NEED THIS, COMPOSITE KEYS ARE CONFUSING
+	@Column(name="INVOICE_NUMBER")
+	private int invoiceId;*/
+	
+	@EmbeddedId
+	@Column(name="INVOICE_ORDER_NUMBER", nullable=false)  //THIS DOES CREATION OF THE TWO COMMENTED COLUMNS? I THINK SO...MAYBE QUESTION FOR PATRICK
+	private InvoicePK invoiceCK;
+	
+	@Column(name="UNIT_PRICE", nullable=false)
+	private int price;
+	
+	@Column(name="QUANTITY_ORDERED", nullable=false)
+	private int quantity;
+	 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="PRODUCT_UPC", nullable=false)
+	private int prodId;  //PRODUCT ID
+	
+	//@ManyToOne
+	//private Set<Product> orderedProduct = new HashSet<Product>();
+	
+	//@ManyToOne
+	//private Set<Order> clientOrder = new HashSet<Order>();
+
+	public InvoicePK getInvoiceCK()
+	{
+		return invoiceCK;
+	}
+
+	public void setInvoiceCK(InvoicePK invoiceCK)
+	{
+		this.invoiceCK = invoiceCK;
+	}
+
+	public int getPrice()
+	{
+		return price;
+	}
+
+	public void setPrice(int price)
+	{
+		this.price = price;
+	}
+
+	public int getQuantity()
+	{
+		return quantity;
+	}
+
+	public void setQuantity(int quantity)
+	{
+		this.quantity = quantity;
+	}
+
+	public int getProdId()
+	{
+		return prodId;
+	}
+
+	public void setProdId(int prodId)
+	{
+		this.prodId = prodId;
+	}
+
+//	public Set<Product> getOrderedProduct()
+//	{
+//		return orderedProduct;
+//	}
+//
+//	public void setOrderedProduct(Set<Product> orderedProduct)
+//	{
+//		this.orderedProduct = orderedProduct;
+//	}
+//
+//	public Set<Order> getClientOrder()
+//	{
+//		return clientOrder;
+//	}
+//
+//	public void setClientOrder(Set<Order> clientOrder)
+//	{
+//		this.clientOrder = clientOrder;
+//	}
+
+	public Invoice(InvoicePK invoiceCK, int price, int quantity, int prodId, Set<Product> orderedProduct,
+			Set<Order> clientOrder)
+	{
+		super();
+		this.invoiceCK = invoiceCK;
+		this.price = price;
+		this.quantity = quantity;
+		this.prodId = prodId;
+		this.orderedProduct = orderedProduct;
+		this.clientOrder = clientOrder;
+	}
+
+	public Invoice()
+	{
+		super();
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Invoice [invoiceCK=" + invoiceCK + ", price=" + price + ", quantity=" + quantity + ", prodId=" + prodId
+				+ "]";
+	}
+}

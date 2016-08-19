@@ -1,0 +1,212 @@
+package com.revature.beans;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.*;
+
+import org.hibernate.type.BlobType;
+
+//THIS BEAN INITIALIZES NEW PRODUCTS PER PRODUCT TABLE
+
+@Entity
+@Table(name="BEARDO_PRODUCTS")
+public class Product 
+{
+	@Id
+	@Column(name="PRODUCT_UPC")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PROD_UPC_GEN")
+	@SequenceGenerator(name="PROD_UPC_GEN", sequenceName="PROD_UPC_SEQ")
+	private int id;
+	
+	@Column(name="PRODUCT_NAME")
+	private String name;
+	
+	@Column(name="PRODUCT_SHORT_NAME")
+	private String sName;
+	
+	@Column(name="PRODUCT_DESCRIPTION")
+	private String description;
+	
+	@Column(name="PRODUCT_COST")
+	private double cost;
+	
+	@Column(name="PRODUCT_PACKAGE_SIZE")
+	private String size;
+	
+	@Column(name="PRODUCT_REORDER_QUANTITY")  //THE AUTOMATIC AMOUNT ASSIGNED TO NEW ORDERS OF THIS PRODUCT
+	private int quantity;
+	
+	@Column(name="PRODUCT_RETAIL_PRICE")
+	private double msrp;
+	
+	@Column(name="PRODUCT_WEIGHT")
+	private double weight;
+	
+	@Column(name="PRODUCT_IMAGE")
+	private BlobType image;  //OPTIONAL, ALSO NOT SURE IF BLOBTYPE
+	
+	@OneToMany
+	Set<ProductCategories> productCategories = new HashSet<ProductCategories>();
+
+	public int getId()
+	{
+		return id;
+	}
+
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+
+	public String getName()
+	{
+		return name;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	public String getsName()
+	{
+		return sName;
+	}
+
+	public void setsName(String sName)
+	{
+		this.sName = sName;
+	}
+
+	public String getDescription()
+	{
+		return description;
+	}
+
+	public void setDescription(String description)
+	{
+		this.description = description;
+	}
+
+	public double getCost()
+	{
+		return cost;
+	}
+
+	public void setCost(double cost)
+	{
+		this.cost = cost;
+	}
+
+	public String getSize()
+	{
+		return size;
+	}
+
+	public void setSize(String size)
+	{
+		this.size = size;
+	}
+
+	public int getQuantity()
+	{
+		return quantity;
+	}
+
+	public void setQuantity(int quantity)
+	{
+		this.quantity = quantity;
+	}
+
+	public double getMsrp()
+	{
+		return msrp;
+	}
+
+	public void setMsrp(double msrp)
+	{
+		this.msrp = msrp;
+	}
+
+	public double getWeight()
+	{
+		return weight;
+	}
+
+	public void setWeight(double weight)
+	{
+		this.weight = weight;
+	}
+
+	public BlobType getImage()
+	{
+		return image;
+	}
+
+	public void setImage(BlobType image)
+	{
+		this.image = image;
+	}
+
+	public Set<ProductCategories> getProductCategories()
+	{
+		return productCategories;
+	}
+
+	public void setProductCategories(Set<ProductCategories> productCategories)
+	{
+		this.productCategories = productCategories;
+	}
+
+	public Product(int id, String name, String sName, String description, double cost, String size, int quantity,
+			double msrp, double weight, BlobType image, Set<ProductCategories> productCategories)
+	{
+		super();
+		this.id = id;
+		this.name = name;
+		this.sName = sName;
+		this.description = description;
+		this.cost = cost;
+		this.size = size;
+		this.quantity = quantity;
+		this.msrp = msrp;
+		this.weight = weight;
+		this.image = image;
+		this.productCategories = productCategories;
+	}
+
+	public Product()
+	{
+		super();
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Product [id=" + id + ", name=" + name + ", sName=" + sName + ", description=" + description + ", cost="
+				+ cost + ", size=" + size + ", quantity=" + quantity + ", msrp=" + msrp + ", weight=" + weight
+				+ ", image=" + image + "]";
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

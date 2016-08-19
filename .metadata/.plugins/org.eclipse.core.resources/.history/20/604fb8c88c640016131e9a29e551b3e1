@@ -1,0 +1,39 @@
+package com.revature.controllers;
+
+import java.util.List;
+import java.util.Vector;
+
+import javax.servlet.ServletContext;
+
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.ServletContextAware;
+
+import com.revature.beans.Person;
+
+@Controller
+public class FirstController implements ServletContextAware, InitializingBean{
+	
+	
+	
+	//will return Hello.jsp
+	@RequestMapping(value="hello.do", method=RequestMethod.GET)
+	public String hello(){
+		return "hello";
+	}
+
+	//"init" method of Initializing beasn
+	public void afterPropertiesSet() throws Exception {
+		private List<Person> peeps = new Vector<>();
+	}
+
+	@Override
+	public void setServletContext(ServletContext ctxt) {
+		
+	}
+	
+	
+	
+}

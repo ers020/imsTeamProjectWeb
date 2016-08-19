@@ -1,0 +1,172 @@
+package com.revature.dataAccess;
+
+import java.util.Date;
+import java.util.Set;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Transaction;
+import org.hibernate.classic.Session;
+
+import com.revature.beans.CategoryDescription;
+import com.revature.beans.Client;
+import com.revature.beans.ClientType;
+import com.revature.beans.Invoice;
+import com.revature.beans.Order;
+import com.revature.beans.Product;
+
+public class DataLayerAccess
+{
+	private Session session;
+	private ManagementDAO dao;
+	private static Logger log = Logger.getRootLogger();
+	
+	//I changed this for testing, we should change it back to how it was.
+	//DON'T WORRY, WE WILL.
+	
+	public DataLayerAccess()
+	{
+		super();
+		
+		log.info("Get the session");
+		
+		session = SessionFactoryManager.getInstance().openSession();
+		
+		log.info("Got the session");
+		
+		dao = new ManagementDAO(session);
+		
+	}
+	//close session
+	public void close()
+	{
+		log.info("Closing the session");
+		if(session != null)
+			session.close();
+
+		log.info("Closed the session");
+	}
+	
+	///INSERT STATEMENT///
+	
+	public void createObject(Object obj)
+	{
+		Transaction tx = session.beginTransaction();
+		
+		try
+		{
+			dao.insertObject(obj); // can call multiple daos or dao methods
+			tx.commit(); // commit 
+		}
+		
+		catch(Throwable t)
+		{// or
+			tx.rollback();// rollback (depending on result)
+		}
+	}
+	
+	/////////////////////CLIENT MANAGEMENT/////////////////////////
+	public boolean terminateClient(Client obj){
+		Transaction tx = session.beginTransaction();
+		
+		try{
+			
+			dao.deleteClient(obj);
+			tx.commit();
+			return true;
+		}catch(Throwable t){
+			tx.rollback();
+			return false;
+		}
+	}
+	
+	public Set<Client> getCurrClients(){
+		Set<Client> currentClients = dao.getCurrentClients();
+		
+		return currentClients;
+	}
+	
+	public Set<Client> allClients(){
+		Set<Client> allClients = dao.getAllClients();
+		
+		return allClients;
+	}
+
+///////////////////// END CLIENT MANAGEMENT /////////////////////////
+	
+	//////////////////// INVOICE SECTION /////////////////////////////
+	
+	public Set<Invoice> getAllInvoices(){
+		
+		Set<Invoice> invoices = dao.getInvoices();
+		
+		return invoices;
+	}
+	
+	/////////////////// END INVOICE SECTION ///////////////////////
+	
+////////////////// BEGIN INCOMING AND OUTGOING SECTION //////////////////	
+	//in-going and outgoing invoices
+	
+	//  client type list
+	public Set<ClientType> clientTypeList(){
+		Set<ClientType> types = dao.getTypes();
+		
+		 return types;
+	}
+	
+	//	client list
+	public Set<Client> clientList(int clientTypeId){
+		Set<Client> clients = dao.getClients(clientTypeId);
+		return clients;
+		
+	}
+	//drop down of items
+	public Set<Product> getProducts(){
+		Set<Product> products = dao.getAllProducts();
+		
+		return products;
+	}
+	
+	//retrieve newly created order
+	public Order getNewOrder(Date orderDate) {
+		Order order = dao.getCurrentOrder(orderDate);
+		return order;
+	}
+	
+	//add or subtract quantity
+	public void change(int amount, int productId){
+		Transaction tx = session.beginTransaction();
+		
+		try{
+			dao.changeStock(amount, productId);
+			tx.commit();
+		}catch(Throwable t){
+			tx.rollback();
+		}
+		return;
+	
+	}
+	////////////////END INCOMING AND OUTGOING SECTION //////////////////	
+	
+	
+	////// ADDITIONS TO ADDING CLIENTS ///////
+//	public State getState(String stateName) {
+//		State state = dao.getState(stateName);
+//		return state;
+//	}
+//	public Address getAddress(State state) {
+//		
+//		Address address = dao.getAddress(state);
+//		
+//		return address;
+//	}
+//	public ClientType getClientType() {
+//		ClientType clientType = dao.getClientType();
+//		
+//		return clientType;
+//	}
+	
+
+	
+	
+}

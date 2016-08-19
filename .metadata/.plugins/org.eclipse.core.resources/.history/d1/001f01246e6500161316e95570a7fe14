@@ -1,0 +1,21 @@
+package com.revature.aop;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.revature.data.BusinessDelegate;
+import com.revature.data.DAO;
+
+public class Runner {
+	
+	public static void main(String[] args) {
+		ApplicationContext ctxt = new ClassPathXmlApplicationContext("aop-beans.xml");
+		DAO dao = (DAO) ctxt.getBean("dao");
+		dao.insert();
+		//dao.insert("Single string");
+		//dao.insert("AOP rocks", "Yup");
+		dao.getString();
+		dao.getAll();
+		BusinessDelegate bd = ctxt.getBean("dao");
+	}
+}

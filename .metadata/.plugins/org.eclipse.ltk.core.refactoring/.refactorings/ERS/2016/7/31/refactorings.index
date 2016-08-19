@@ -1,0 +1,35 @@
+1469649491476	Delete element
+1469649768685	Delete element
+1469652708193	Rename resource 'nav.jsp'
+1469669284037	Rename type 'Role'
+1469670210550	Delete element
+1469670263579	Delete element
+1469721245737	Move 'adminView.jsp' to 'adminPages'
+1469721250427	Move 2 resources to 'clientPages'
+1469721292582	Move 2 resources to 'navPage'
+1469721294945	Move 'header.jsp' to 'headerPage'
+1469721308796	Move 'footer.jsp' to 'footerPage'
+1469721323921	Move 'index.css' to 'cssFile'
+1469721334910	Move 'confused.jpg' to 'images'
+1469721347704	Move 'adminMain.jsp' to 'adminPages'
+1469721350681	Move 'clientMain.jsp' to 'clientPages'
+1469721367585	Move 'bootstrap.html' to 'bootstrapFile'
+1469725248483	Move 'main.jsp' to 'mainPage'
+1469727574553	Delete element
+1469727907615	Delete element
+1469728166714	Delete element
+1469730338281	Move 'index.css' to 'WebContent'
+1469730348653	Move 'confused.jpg' to 'WebContent'
+1469730385840	Move 'main.jsp' to 'WebContent'
+1469731157600	Move 'main.jsp' to 'mainPage'
+1469731637875	Move 'main.jsp' to 'WebContent'
+1469731693933	Move 2 resources to 'WebContent'
+1469731716661	Move 'adminView.jsp' to 'WEB-INF'
+1469731721889	Move 'adminView.jsp' to 'WebContent'
+1469732845785	Delete element
+1469732874191	Delete element
+1469733028707	Rename type 'ServiceLocatoreRole'
+1469733046769	Move 'bootstrap.html' to 'WebContent'
+1469733053457	Move 'nav.jsp' to 'WebContent'
+1469733071347	Move 'nav.jsp' to 'navPage'
+1469750542164	Move 'nav.jsp' to 'WebContent'

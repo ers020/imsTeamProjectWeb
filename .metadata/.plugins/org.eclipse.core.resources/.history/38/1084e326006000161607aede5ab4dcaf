@@ -1,0 +1,18 @@
+package com.revature.app;
+
+import org.hibernate.Session;
+
+import com.revature.beans.Student;
+import com.revature.hibernate.SessionFactoryManager;
+
+public class Loading {
+	
+	public static void main(String[] args) {
+		Session session = SessionFactoryManager.getInstance().openSession();
+		
+		Student randolph = (Student)session.get(Student.class, 63);			
+													//^Type	 //^PK
+	
+		System.out.println("Get " + randolph.getName() + " from DB");
+	}
+}

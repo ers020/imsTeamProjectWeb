@@ -1,0 +1,26 @@
+package com.revature.lifecycle;
+
+public class LifecycleBean {
+
+	private String str;
+
+	public String getStr() {
+		return str;
+	}
+
+	//setter injector
+	public void setStr(String str) {
+		this.str = str;
+	}
+
+	public LifecycleBean() {
+		super();
+	}
+
+	public LifecycleBean(String str) {
+		super();
+		this.str = str;
+	}
+	
+	
+}

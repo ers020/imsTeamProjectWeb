@@ -1,0 +1,15 @@
+package com.revature.controllers;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class FirstController {
+	
+	//will return Hello.jsp
+	@RequestMapping(value="login.do")
+	public String hello(){
+		return "hello";
+	}
+	
+}

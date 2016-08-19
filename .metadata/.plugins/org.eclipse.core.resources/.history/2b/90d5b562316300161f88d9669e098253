@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.revature.beans.Employee" table="HIBERNATE_EMPLOYEE">
+		<id name="id" type="int"> <!-- bean property -->
+			<column name="CATEGORY_ID" /> <!-- table column -->
+			<generator class="sequence" /> <!-- uses default: HIBERNATE_SEQUENCE -->
+		</id>
+		<property name="description" type="java.lang.String">
+			<column name="CATEGORY_DESCRIPTION" />
+		</property>
+		<!-- SET? -->
+	</class>
+</hibernate-mapping>

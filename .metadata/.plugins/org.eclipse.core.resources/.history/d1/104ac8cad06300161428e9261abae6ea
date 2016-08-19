@@ -1,0 +1,66 @@
+package com.revature.beans;
+
+import java.io.Serializable;
+import org.apache.log4j.*;
+
+import javax.persistence.*;
+
+@Embeddable
+public class ProdCatPK implements Serializable
+{
+//	/**
+//	 * 
+//	 */
+//	private static final long serialVersionUID = -3998222360524377085L;  //The serializable here may not be necessary
+
+	@OneToOne(cascade = CascadeType.ALL)   //>>ONE PRODUCT PER UPC
+	@JoinColumn(name="PRODUCT_UPC", nullable=false)
+	private int prodId;
+	
+	@OneToOne(cascade = CascadeType.ALL)   //>>ONE CATEGORY PER PRODUCT...I HOPE
+	@JoinColumn(name="CATEGORY_ID", nullable=false)
+	private int catId;
+
+	public int getProdId()
+	{
+		return prodId;
+	}
+
+	public void setProdId(int prodId)
+	{
+		this.prodId = prodId;
+	}
+
+	public int getCatId()
+	{
+		return catId;
+	}
+
+	public void setCatId(int catId)
+	{
+		this.catId = catId;
+	}
+
+	public static long getSerialversionuid()
+	{
+		return serialVersionUID;
+	}
+
+	public ProdCatPK(int prodId, int catId)
+	{
+		super();
+		this.prodId = prodId;
+		this.catId = catId;
+	}
+
+	public ProdCatPK()
+	{
+		super();
+	}
+
+	@Override
+	public String toString()
+	{
+		return "ProdCatPK [prodId=" + prodId + ", catId=" + catId + "]";
+	}
+}

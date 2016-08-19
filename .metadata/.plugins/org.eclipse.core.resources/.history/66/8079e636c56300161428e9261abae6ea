@@ -1,0 +1,23 @@
+package com.revature.lifecycle;
+
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Runner {
+	
+	public static void main(String[] args) {
+		AbstractApplicationContext context = new ClassPathXmlApplicationContext("lifecycle.xml");
+		//startup this lifecycle for my beans
+		System.out.println("IoC Contain started up!");
+		LifecycleBean bean1 = (LifecycleBean) context.getBean("lifecycle"); //using my bean
+		LifecycleBean bean2 = (LifecycleBean) context.getBean("lifecycle"); //using my bean
+		
+		bean1.setStr("✌(◕‿-)✌");
+		
+		System.out.println(bean1.getStr());
+		System.out.println(bean2.getStr());
+		
+		//whatever we need to do
+		context.registerShutdownHook(); //power off!!!!!!!!!!1!
+	}
+}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM 
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+	
+	<!-- configure SessionFactory -->
+		<property name="hibernate.connection.driver_class">
+			oracle.jdbc.OracleDriver
+		</property>
+		<property name="hibernate.connection.url">
+			jdbc:oracle:thin:@localhost:1521:xe
+		</property>
+		<property name="hibernate.connection.username">
+			demo
+		</property>
+		<property name="hibernate.connection.password">
+			demo
+		</property>
+		<property name="hibernate.connection.pool_size">
+			20
+		</property>
+		<property name="hibernate.dialect">
+			org.hibernate.dialect.Oracle10gDialect
+		</property>
+		<!-- won't do this on the job, but will save us time in training -->
+		<property name="hibernate.hbm2ddl.auto">
+			update
+		</property>
+		<property name="hibernate.show_sql"> <!-- good for debugging and development -->
+			true
+		</property>
+		
+		<!-- CACHE CONFIGURATION -->
+		<property name="net.sf.ehcache.configurationResourceName">
+			/ehcache.xml
+		</property>
+		<property name="hibernate.cache.region.factory_class">
+			net.sf.ehcache.hibernate.EhCacheRegionFactory
+		</property>
+		<property name="hibernate.cache.use_second_level_cache">
+			true
+		</property>
+		<property name="hibernate.cache.use_query_cache">
+			true
+		</property>
+		
+		<!-- Object-Relational Mapping resources -->
+		<mapping resource="Employee.hbm.xml"  />
+		
+		<mapping class="com.revature.beans.Classroom" /> 
+		<mapping class="com.revature.beans.Course" />
+		<mapping class="com.revature.beans.Instructor" />
+		<mapping class="com.revature.beans.Student" />
+		<mapping class="com.revature.beans.Textbook" />
+		
+		
+		
+	</session-factory>
+	</hibernate-configuration>

@@ -1,0 +1,73 @@
+package com.revature.web;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+
+import com.revature.app.DataService;
+import com.revature.beans.RoleBean;
+import com.revature.beans.UserBean;
+
+public class AuthFilter implements Filter{
+	
+	private AuthFilter authFilter;
+	private FilterConfig config;
+	
+	@Override
+	public void init(FilterConfig arg0) throws ServletException {
+		this.authFilter = authFilter;
+		
+	}
+	
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
+
+		String username = request.getParameter("user");
+		String password = request.getParameter("pass");
+		
+		//compare username and password to the database
+		DataService ds = new DataService();
+		boolean valid = false;
+		valid = ds.validateUser(username, password, valid);
+		
+		if (valid){
+			
+			//Roles 
+			List<RoleBean> roles = new ArrayList<RoleBean>();
+			ds = new DataService();
+			roles = ds.fillRolesBean(roles);
+			//end Roles
+			
+			//User
+			UserBean user = null;
+			user = ds.fillUserBean(username, password, user, roles);
+			
+			HttpServletRequest req = (HttpServletRequest) request;
+			req.getSession().setAttribute("session", user);
+			request = req;
+			chain.doFilter(request, response);
+			
+		} else {
+			request.getServletContext()
+			.getRequestDispatcher(config.getInitParameter("loginPage"))
+			.forward(request, response);
+		}
+		
+	}
+	
+	@Override
+	public void destroy() {
+		
+		
+	}
+	
+}

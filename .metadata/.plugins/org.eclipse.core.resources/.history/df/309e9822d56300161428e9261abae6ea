@@ -1,0 +1,6 @@
+package com.revature.annotated.beans;
+
+
+public class BuisnessDelegate {
+	
+}

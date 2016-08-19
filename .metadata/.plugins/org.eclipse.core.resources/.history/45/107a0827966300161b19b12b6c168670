@@ -1,0 +1,74 @@
+package com.revature.beans;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.*;
+
+//THIS BEAN MATCHES CATEGORY IDs TO THEIR RESPECTIVE DESCRIPTIONS
+//NOT TO BE CONFUSED WITH THE PRODUCT_CATEGORIES TABLE
+//NOT SURE WHO CHOSE THESE NAMES...
+
+@Entity
+@Table(name="BEARDO_CATEGORY_DESCRIPTIONS")
+public class CategoryDescription
+{
+	@Id
+	@Column(name="CATEGORY_ID")
+	private int id;  //CATEGORY ID
+	
+	@Column(name="CATEGORY_DESCRIPTION")
+	private String description;
+	
+	@OneToMany  //POSSIBLY NEED SOMETHING MORE HERE
+	Set<ProductCategories> productCategories = new HashSet<ProductCategories>();
+
+	public int getId()
+	{
+		return id;
+	}
+
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+
+	public String getDescription()
+	{
+		return description;
+	}
+
+	public void setDescription(String description)
+	{
+		this.description = description;
+	}
+
+	public Set<ProductCategories> getProductCategories()
+	{
+		return productCategories;
+	}
+
+	public void setProductCategories(Set<ProductCategories> productCategories)
+	{
+		this.productCategories = productCategories;
+	}
+
+	public CategoryDescription(int id, String description, Set<ProductCategories> productCategories)
+	{
+		super();
+		this.id = id;
+		this.description = description;
+		this.productCategories = productCategories;
+	}
+
+	public CategoryDescription()
+	{
+		super();
+	}
+
+	@Override
+	public String toString()
+	{
+		return "CategoryDescription [id=" + id + ", description=" + description + "]";
+	}
+}

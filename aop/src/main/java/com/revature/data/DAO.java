@@ -1,0 +1,36 @@
+package com.revature.data;
+
+public class DAO {
+	
+	public void insert(String str){// joinpoint potential to intercept all or none
+		System.out.println("Executed: public void insert(String str)");
+	}
+	
+	public void insert(String str, Object str2){// joinpoint 
+		System.out.println("Executed: public void insert(String str, String str2)");
+
+	}
+	public String insert(){
+		System.out.println("Executed: public String insert()");
+		return "Pickle";
+	}
+	
+	public String getString(){// joinpoint
+		System.out.println("Executed: public String getString()");
+		//Integer.parseInt("dan");
+		return "Potato";
+	}
+	
+	public String[] getAll(){// joinpoint
+		System.out.println("Executed: public String[] getAll()");
+		String[] abc = {"1", "2", "3"};
+		return abc;
+	}
+	
+	public boolean delete(){// joinpoint
+		System.out.println("Executed: public void delete()");
+		return true;
+		
+	}
+	
+}

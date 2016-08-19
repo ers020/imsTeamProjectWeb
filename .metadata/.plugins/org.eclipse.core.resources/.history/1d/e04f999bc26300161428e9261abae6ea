@@ -1,0 +1,48 @@
+package com.revature.lifecycle;
+
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.InitializingBean;
+
+public class LifecycleBean implements BeanNameAware, 
+									BeanFactoryAware,
+									InitializingBean
+{
+
+	private String str;
+
+	public String getStr() {
+		return str;
+	}
+
+	//setter injector
+	public void setStr(String str) {
+		this.str = str;
+		System.out.println("Populate Properties");//2.
+	}
+
+	//instantiate occurs calling the no-arg constructor
+	public LifecycleBean() {
+		super();
+		System.out.println("Instantiate"); //1.
+	}
+
+	public LifecycleBean(String str) {
+		super();
+		this.str = str;
+	}
+
+	public void setBeanName(String beanName) {
+		System.out.println("BeanNameAware's setBeanName: " + beanName); //3
+		
+	}
+
+	public void setBeanFactory(BeanFactory bff) throws BeansException {
+		System.out.println("BeanFactoryAware's setBeanFactory: " + bff); //4
+		
+	}
+	
+	
+}

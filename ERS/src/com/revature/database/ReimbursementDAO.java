@@ -1,0 +1,311 @@
+package com.revature.database;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
+
+import com.revature.beans.ReimburseBean;
+import com.revature.beans.StatusBean;
+import com.revature.beans.TypeBean;
+import com.revature.beans.UserBean;
+
+public class ReimbursementDAO {
+
+	private static Properties columns;
+	
+	static{
+		columns = new Properties();
+		try {
+			columns.load(
+					ReimbursementDAO.class.getClassLoader()
+					.getResourceAsStream("ers_reimbursement.properties")
+					
+					);
+		} catch (IOException e) {e.printStackTrace();}
+	}
+
+	public List<ReimburseBean> getAdminList(Connection conn, List<UserBean> user,
+			List<StatusBean> stats, List<TypeBean> type) {
+		
+			List<ReimburseBean> reimbList = new ArrayList<ReimburseBean>();
+			ReimburseBean reimb = null;
+		
+		String query="SELECT * "
+				+ "FROM ERS_REIMBURSEMENT ";
+		
+		try {
+			PreparedStatement stmt = conn.prepareStatement(query);
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				
+				UserBean userAuthTemp = null;
+				UserBean userResTemp = null;
+				StatusBean statTemp = null;
+				TypeBean typeTemp = null;
+				
+				//get Author/User object
+				for(UserBean u : user){
+					if (u.getId() == rs.getInt(columns.getProperty("author"))){
+						userAuthTemp = u;
+					}
+				}
+				
+				//get Resolver/User object
+				for(UserBean u : user){
+					if(u.getId() == rs.getInt(columns.getProperty("resolver"))){
+						userResTemp = u;
+					}
+				}
+				
+				//get Status object
+				for(StatusBean s : stats){
+					if(s.getStatusId() == rs.getInt(columns.getProperty("statusId"))){
+						statTemp = s;
+					}
+				}
+				
+				//get Type object
+				for(TypeBean t : type){
+					if(t.getTypeId() == rs.getInt(columns.getProperty("typeId"))){
+						typeTemp = t;
+					}
+				}				
+				
+				reimb = new ReimburseBean(
+						rs.getInt(columns.getProperty("reimbId")),
+						rs.getDouble(columns.getProperty("amount")),
+						rs.getDate(columns.getProperty("submitted")),
+						rs.getDate(columns.getProperty("resolved")),
+						rs.getString(columns.getProperty("descript")),
+						rs.getBlob(columns.getProperty("receipt")),
+						userAuthTemp,
+						userResTemp,
+						statTemp,
+						typeTemp
+						
+						);
+				reimbList.add(reimb);
+			}
+			
+			return reimbList;
+			
+		} catch (SQLException e) {e.printStackTrace(); return null;}
+	
+	}
+
+	public List<ReimburseBean> getClientList(Connection conn, UserBean thisUser, List<UserBean> user,
+			List<StatusBean> stats, List<TypeBean> type) {
+
+		List<ReimburseBean> reimbList = new ArrayList<ReimburseBean>();
+		ReimburseBean reimb = null;
+	
+		String query="SELECT * "
+			+ "FROM ERS_REIMBURSEMENT "
+			+ "WHERE REIMB_AUTHOR=?";
+	
+	try {
+		PreparedStatement stmt = conn.prepareStatement(query);
+		stmt.setInt(1, thisUser.getId());
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next()){
+			
+			UserBean userResTemp = null;
+			StatusBean statTemp = null;
+			TypeBean typeTemp = null;
+
+			
+			//get Resolver/User object
+			for(UserBean u : user){
+				if(u.getId() == rs.getInt(columns.getProperty("resolver"))){
+					userResTemp = u;
+				}
+			}
+			
+			//get Status object
+			for(StatusBean s : stats){
+				if(s.getStatusId() == rs.getInt(columns.getProperty("statusId"))){
+					statTemp = s;
+				}
+			}
+			
+			//get Type object
+			for(TypeBean t : type){
+				if(t.getTypeId() == rs.getInt(columns.getProperty("typeId"))){
+					typeTemp = t;
+				}
+			}				
+			
+			reimb = new ReimburseBean(
+					rs.getInt(columns.getProperty("reimbId")),
+					rs.getDouble(columns.getProperty("amount")),
+					rs.getDate(columns.getProperty("submitted")),
+					rs.getDate(columns.getProperty("resolved")),
+					rs.getString(columns.getProperty("descript")),
+					rs.getBlob(columns.getProperty("receipt")),
+					thisUser,
+					userResTemp,
+					statTemp,
+					typeTemp
+					
+					);
+			reimbList.add(reimb);
+		}
+		
+		return reimbList;
+		
+	} catch (SQLException e) {e.printStackTrace(); return null;}
+	}
+
+	public ReimburseBean editReimb(Connection conn, List<TypeBean> type, List<StatusBean> status, int id) {
+		
+		ReimburseBean reimBean = null;
+		TypeBean tempType = null;
+		StatusBean tempStat = null;
+		UserBean tempUser = null;
+		
+		String query = "SELECT ERS_REIMBURSEMENT.REIMB_AMOUNT, ERS_REIMBURSEMENT.REIMB_DESCRIPTION, "
+				+ "ERS_REIMBURSEMENT.REIMB_STATUS_ID, ERS_REIMBURSEMENT.REIMB_TYPE_ID, "
+				+ "ERS_USERS.USER_FIRST_NAME, ERS_USERS.USER_LAST_NAME "
+				+ "FROM DEMO.ERS_REIMBURSEMENT JOIN DEMO.ERS_USERS "
+				+ "ON ERS_REIMBURSEMENT.REIMB_AUTHOR = ERS_USERS.ERS_USERS_ID "
+				+ "AND ERS_USERS.ERS_USERS_ID =? ";
+		
+		try {
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				
+				for(TypeBean t : type){
+					if(t.getTypeId() == rs.getInt("REIMB_TYPE_ID")){
+						tempType = t;
+					}
+				}
+				
+				for(StatusBean s : status){
+					if(s.getStatusId() == rs.getInt("REIMB_STATUS_ID")){
+						tempStat = s;
+					}
+				}
+				
+				tempUser = new UserBean(
+							rs.getInt("ERS_USERS_ID"),
+							rs.getString("USER_FIRST_NAME"),
+							rs.getString("USER_LAST_NAME")
+						);
+				
+				reimBean = new ReimburseBean(
+							id,
+							rs.getDouble(columns.getProperty("amount")),
+							rs.getString(columns.getProperty("descript")),
+							tempUser,
+							tempStat,
+							tempType
+						);
+			}
+			
+			return reimBean;
+			
+		} catch (SQLException e) {e.printStackTrace(); return null;}
+		
+	}
+
+	public boolean inputNewClaim(Connection conn, int userId, double amount, String desc, int type, Date date) {
+ 		
+ 		String query = "INSERT INTO ERS_REIMBURSEMENT "
+ 				+ "(REIMB_ID, REIMB_AMOUNT, REIMB_DESCRIPTION, REIMB_SUBMITTED, REIMB_AUTHOR, REIMB_STATUS_ID, REIMB_TYPE_ID) "
+ 				+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+ 		
+ 		Timestamp timeStamp = new Timestamp(date.getTime());
+ 		
+ 		try{
+ 			
+ 			PreparedStatement stmt = conn.prepareStatement(query);
+ 			stmt.setInt(1, 1);
+ 			stmt.setDouble(2, amount);
+ 			stmt.setString(3, desc);
+ 			stmt.setTimestamp(4, timeStamp);
+ 			stmt.setInt(5, userId);
+ 			stmt.setInt(6, 1);
+	
+ 			stmt.setInt(7, type);
+ 			stmt.executeQuery();
+ 			
+ 			return true;
+ 			
+ 		}catch(Exception e){e.printStackTrace(); return false;}
+ 
+ 	}
+
+	public void approveClaim(Connection conn, int id, int resolverId, Date date) {
+
+		String query = "UPDATE ERS_REIMBURSEMENT " 
+				+ "SET REIMB_RESOLVED=?, "
+				+ "REIMB_RESOLVER=?, "
+				+ "REIMB_STATUS_ID=? "
+				+ "WHERE REIMB_ID=? ";
+		
+		Timestamp timeStamp = new Timestamp(date.getTime());
+		
+		try {
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setTimestamp(1, timeStamp);
+			stmt.setInt(2, resolverId);
+			stmt.setInt(3, 2);
+			stmt.setInt(4, id);
+			
+			int update = stmt.executeUpdate();
+
+			if(update > 0){
+				conn.commit();
+			}
+			else{
+				conn.rollback();
+				
+			}
+			
+			
+		} catch (SQLException e) {e.printStackTrace();}
+		
+		
+	}
+
+	public void denyClaim(Connection conn, int id, int resolverId, Date date) {
+		String query = "UPDATE ERS_REIMBURSEMENT "
+				+ "SET REIMB_RESOLVED=?, REIMB_RESOLVER=?, "
+				+ "REIMB_STATUS_ID=? "
+				+ "WHERE REIMB_ID=? ";
+		
+		Timestamp timeStamp = new Timestamp(date.getTime());
+		
+		try {
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setTimestamp(1, timeStamp);
+			stmt.setInt(2, resolverId);
+			stmt.setInt(3, 3);
+			stmt.setInt(4, id);
+			int update = stmt.executeUpdate();
+			
+			if(update > 0){
+				conn.commit();
+			}
+			else{
+				conn.rollback();
+				
+			}
+			
+		} catch (SQLException e) {e.printStackTrace();}
+		
+	}
+
+}

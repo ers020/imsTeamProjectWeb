@@ -1,0 +1,16 @@
+package com.revature.data;
+
+import java.util.List;
+
+import com.revature.beans.Pickle;
+
+public class DataService {
+	
+	private DAO dao; 
+	
+	public void batchInsert(List<Pickle> pickleJar){
+		for(Pickle p : pickleJar){
+			
+		}
+	}
+}

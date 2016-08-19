@@ -1,0 +1,19 @@
+package com.revature.annotated.beans;
+
+import org.springframework.stereotype.Component;
+
+@Component("bd")
+public class BusinessDelegate {
+	
+	private DataService ds;
+	
+	public void setDs(DataService ds) {
+		this.ds = ds;
+	}
+
+	public DataService getDs() {
+		return ds;
+	}
+
+	
+}

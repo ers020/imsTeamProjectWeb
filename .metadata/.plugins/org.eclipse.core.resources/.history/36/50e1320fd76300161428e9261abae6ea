@@ -1,0 +1,12 @@
+package com.revature.annotated.beans;
+
+import org.springframework.stereotype.Service;
+
+@Service("ds")
+public class DataService {
+	
+	public DataService(){
+		System.out.println("Instantiating DataService");
+		
+	}
+}

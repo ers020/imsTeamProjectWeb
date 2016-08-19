@@ -1,0 +1,8 @@
+package com.revature.data;
+
+public class DAO {
+	
+	public void save(Pickle pickle){
+		
+	}
+}

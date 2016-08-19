@@ -1,0 +1,11 @@
+package com.revature.aop;
+
+public class LoggingAspect {
+	
+	/**
+	 * Someone called insert method! LOG it.... and Kill Kenny.
+	 */
+	public void logInsert(){
+		System.out.println("[LOG]: --@Before-- Insert method executed");
+	}
+}

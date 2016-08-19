@@ -1,0 +1,130 @@
+package com.revature.dataAccess;
+
+import java.util.Set;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Transaction;
+import org.hibernate.classic.Session;
+
+import com.revature.beans.Client;
+import com.revature.beans.ClientType;
+import com.revature.beans.Product;
+
+public class DataLayerAccess
+{
+	private Session session;
+	private ManagementDAO dao;
+	private static Logger log = Logger.getRootLogger();
+	
+	//I changed this for testing, we should change it back to how it was.
+	//DON'T WORRY, WE WILL.
+	
+	public DataLayerAccess()
+	{
+		super();
+		
+		log.info("Get the session");
+		
+		session = SessionFactoryManager.getInstance().openSession();
+		
+		log.info("Got the session");
+		
+		dao = new ManagementDAO(session);
+		
+	}
+	//close session
+	public void close()
+	{
+		log.info("Closing the session");
+		if(session != null)
+			session.close();
+
+		log.info("Closed the session");
+	}
+	
+	///INSERT STATEMENT///
+	
+	public void createObject(Object obj)
+	{
+		Transaction tx = session.beginTransaction();
+		
+		try
+		{
+			dao.insertObject(obj); // can call multiple daos or dao methods
+			tx.commit(); // commit 
+		}
+		
+		catch(Throwable t)
+		{// or
+			tx.rollback();// rollback (depending on result)
+		}
+	}
+	
+	/////////////////////CLIENT MANAGEMENT/////////////////////////
+	public boolean terminateClient(Client obj){
+		Transaction tx = session.beginTransaction();
+		
+		try{
+			
+			dao.deleteClient(obj);
+			tx.commit();
+			return true;
+		}catch(Throwable t){
+			tx.rollback();
+			return false;
+		}
+	}
+
+	
+	
+////////////////// BEGIN INCOMING AND OUTGOING SECTION //////////////////	
+	//in-going and outgoing invoices
+	//  client type list
+	
+	public Set<ClientType> clientTypeList(){
+		Set<ClientType> types = dao.getTypes();
+		
+		 return types;
+	}
+	
+	//	client list
+	public Set<Client> clientList(int clientTypeId){
+		Set<Client> clients = dao.getClients(clientTypeId);
+		return clients;
+		
+	}
+	//drop down of items
+	public Set<Product> getProducts(){
+		Set<Product> products = dao.getAllProducts();
+		
+		return products;
+	}
+	
+	//add or subtract quantity
+	public void change(int amount, int productId){
+		Transaction tx = session.beginTransaction();
+		
+		try{
+			dao.changeStock(amount, productId);
+			tx.commit();
+		}catch(Throwable t){
+			tx.rollback();
+		}
+		return;
+	
+	}
+	
+	//make invoice
+	public void createInvoice(int sum, int quantity, int productId){
+		Transaction tx = session.beginTransaction();
+		
+		try{
+			dao.createInvoice(sum, quantity, productId);
+			tx.commit();
+		}catch(Throwable t){
+			tx.rollback();
+		}
+	}
+	////////////////END INCOMING AND OUTGOING SECTION //////////////////	
+	
+}

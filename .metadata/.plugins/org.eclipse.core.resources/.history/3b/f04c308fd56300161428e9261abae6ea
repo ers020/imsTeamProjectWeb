@@ -1,0 +1,15 @@
+package com.revature.annotated.beans;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Runner {
+	public static void main(String[] args) {
+		ApplicationContext ctxt = new ClassPathXmlApplicationContext("annotations.xml");
+		
+		ctxt.getBean("bd");
+		ctxt.getBean("dao");
+		ctxt.getBean("ds");
+		
+	}
+}

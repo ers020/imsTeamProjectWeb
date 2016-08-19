@@ -1,0 +1,64 @@
+package com.revature.beans;
+
+import java.io.Serializable;
+import org.apache.log4j.*;
+
+import javax.persistence.*;
+
+@Embeddable
+public class InvoicePK implements Serializable
+{
+//	/**
+//	 * 
+//	 */
+//	private static final long serialVersionUID = 6526057357764948291L;
+	
+	@ManyToOne   //>>THE TABLES SAY MANY INVOICES TO ONE ORDER....BUT THAT DOESN'T FEEL RIGHT
+	@JoinColumn(name="ORDER_NUMBER", nullable=false)
+//	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ORDER_ID_GEN") >>I BELIEVE THIS WILL BE GENERATED IN "ORDER"<<
+	private int orderId;
+	
+	@Column(name="LINE_NUMBER", nullable=false)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="LINE_ID_GEN")
+	@SequenceGenerator(name="LINE_ID_GEN", sequenceName="LINE_ID_SEQ")
+	private int lineId;
+
+	public int getOrderId()
+	{
+		return orderId;
+	}
+
+	public void setOrderId(int orderId)
+	{
+		this.orderId = orderId;
+	}
+
+	public int getLineId()
+	{
+		return lineId;
+	}
+
+	public void setLineId(int lineId)
+	{
+		this.lineId = lineId;
+	}
+
+
+	public InvoicePK(int orderId, int lineId)
+	{
+		super();
+		this.orderId = orderId;
+		this.lineId = lineId;
+	}
+
+	public InvoicePK()
+	{
+		super();
+	}
+
+	@Override
+	public String toString()
+	{
+		return "InvoicePK [orderId=" + orderId + ", lineId=" + lineId + "]";
+	}
+}

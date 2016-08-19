@@ -1,0 +1,19 @@
+package com.revature.controllers;
+
+import java.util.List;
+
+import com.revature.beans.Person;
+
+public class AJAXController {
+	
+	private List<Person> people = new Vector<Person>();
+	
+	public List<Person> getPeople(){
+		
+	}
+	
+	public void insertPerson(){
+		
+	}
+	
+}

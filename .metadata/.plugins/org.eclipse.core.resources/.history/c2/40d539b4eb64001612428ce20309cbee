@@ -1,0 +1,206 @@
+package com.revature.dataAccess;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import com.revature.beans.Address;
+import com.revature.beans.Client;
+import com.revature.beans.ClientType;
+import com.revature.beans.Invoice;
+import com.revature.beans.Product;
+import com.revature.beans.State;
+
+
+public class ManagementDAO {
+
+	private Session session;
+	
+	
+	public ManagementDAO(Session session) {
+		this.session = session;
+	}
+
+	public ManagementDAO()
+	{
+		super();
+	}
+
+	//made this more abstract
+	///EPIC!!!!!///
+	public void insertObject(Object obj)
+	{
+		//THIS SHOULD UPDATE [AND] INSERT
+		Object mergedObj = session.merge(obj); 
+		session.saveOrUpdate(mergedObj);
+//		discrete process
+//		session.save(obj);
+	}
+	
+	//////////////////////////// BEGIN CLIENT SECTION /////////////////////////////
+	
+	public void deleteClient(Client obj)
+	{
+		obj.setName(obj.getName() + " [TERMINATED]");	//IDEA!!! WHEN SHOWING CLIENT LIST, DON'T SHOW IF INCLUDE [TERMINATED], 
+														//BUT VIEWABLE IN HISTORY
+		obj.setClientType(new ClientType(3, "Terminated"));  //DEF SHOULD NOT BE HARDCODED
+															 //NEED TO FIGURE OUT HOW TO PROGRAMATICALLY SET TYPE
+		Object mergedObj = session.merge(obj); 
+		session.saveOrUpdate(mergedObj);
+	}
+	
+	public Set<Client> getCurrentClients(){
+		
+		//should use specific search here to find the "[" or "TERMINATED"
+		
+		return null;
+		
+	}
+	
+	public Set<Client> getAllClients(){
+		String hql = "FROM Client";
+		
+		Query query = session.createQuery(hql);
+		
+		
+		@SuppressWarnings("unchecked")
+		Set<Client> results = new HashSet<Client>(query.list());
+		
+		return results;
+		
+	}
+	
+/*	public void updateClient(Client obj)
+	{
+		Object mergedObj = session.merge(obj); 	//   >>>  POSSIBLY UNNECESSARY  <<<
+		session.saveOrUpdate(mergedObj);
+	}*/
+	
+////////////////////////////////// END CLIENT SECTION //////////////////////////////////
+	
+	
+	///////////////// BEGIN INVOICE SECTION //////////////////////////
+	
+	// Could eventually have it take a Date figure, and pull only those
+	// before or after a certain Date.
+	// Something fun for later.
+	public Set<Invoice> getInvoices(/* possibly a parameter */)
+	{
+		String hql = "FROM INVOICES";
+		
+		Query query =  session.createQuery(hql);
+		
+		@SuppressWarnings("unchecked")
+		Set<Invoice> results = new HashSet<Invoice>(query.list());
+		
+		return results;
+	}
+	
+	///////////////// END INVOICE SECTION //////////////////////////
+	
+	
+	//AVAILABLE IN THE INCOMING AND OUTGOING SECTION//
+//	public Set<List> getProducts(/* possibly a parameter */)
+//	{
+//		String hql = "FROM PRODUCT";
+//		
+//		Query query = session.createQuery(hql);
+//		
+//		@SuppressWarnings("unchecked")
+//		Set<List> results = (Set<List>)query.uniqueResult();
+//		
+//		return results;		
+//	}
+
+	/////////////////////// BEGIN INCOMING AND OUTGOING SECTION ////////////////////////
+	
+	//Get client type
+	public Set<ClientType> getTypes() {
+		String clientTypeQuery = "FROM com.revature.beans.ClientType";
+		Query query = session.createQuery(clientTypeQuery);
+		
+		@SuppressWarnings("unchecked")
+		Set<ClientType> type = new HashSet<ClientType>(query.list());
+		
+		return type;
+	}
+	
+	//Get clients
+	public Set<Client> getClients(int clientTypeId){
+		String clientType = "FROM com.revature.beans.Client WHERE id = :param";
+		Query query = session.createQuery(clientType);
+		query.setInteger("param", clientTypeId);
+	
+		@SuppressWarnings("unchecked")
+		Set<Client> clients = (Set<Client>) query.uniqueResult();
+		
+		
+		return clients;
+	}
+
+	//Get products
+	public Set<Product> getAllProducts() {
+		String productQuery = "FROM com.revature.beans.Product";
+		Query query = session.createQuery(productQuery);
+		
+		@SuppressWarnings("unchecked")
+		Set<Product> products = (Set<Product>) query.uniqueResult();
+		return products;
+	}
+
+	//Update stocks
+	public void changeStock(int amount, int productId) {
+		String productQuery = "UPDATE BEARDO_PRODUCTS set quantity =:quantity "+
+				"WHERE id =:id";
+		Query query = session.createQuery(productQuery);
+		query.setParameter("quantity", amount);
+		query.setParameter("id", productId);
+		query.executeUpdate();
+		
+		return;
+	}
+	
+	//Create invoice
+	public void createInvoice(int sum, int quantity, int productId){
+		// unsure how to create the id for invoices, I will hold off
+		// for now.
+	}
+
+	///////////////////// END INCOMING AND OUTGOING SECTION //////////////////////
+
+
+	/////WORK IN PROGRESS, ADDING INTO TABLES /////
+	
+	///These have re-useablility for later///
+	public State getState(String stateName) {
+		String theState = "FROM State WHERE name =:param";
+		Query query = session.createQuery(theState);
+		query.setParameter("param", stateName);
+		State state = (State) query.uniqueResult();
+		
+		return state;
+	}
+
+	public Address getAddress(State state) {
+		String addy = "FROM Address WHERE STATE_ID =:state";
+		Query query = session.createQuery(addy);
+		query.setParameter("state", state.getId());
+		
+		Address address = (Address) query.uniqueResult();
+		
+		return address;
+	}
+
+	public ClientType getClientType() {
+		String hql = "FROM ClientType WHERE id =:id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", 2);
+		
+		ClientType clientType = (ClientType) query.uniqueResult();
+		
+		return clientType;
+	}
+
+}
