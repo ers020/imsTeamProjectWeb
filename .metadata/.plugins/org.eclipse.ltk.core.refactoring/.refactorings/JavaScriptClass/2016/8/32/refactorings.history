@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;JavaScriptClass/WebContent/fizzbuzz.htm&apos; to &apos;fizzbuzz.html&apos;" description="Rename resource &apos;fizzbuzz.htm&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="WebContent/fizzbuzz.htm" name="fizzbuzz.html" stamp="1470229640985" updateReferences="true"/>&#x0A;&#x0A;<refactoring comment="Move &apos;indexJS.js&apos; to &apos;js&apos;" description="Move &apos;indexJS.js&apos; to &apos;js&apos;" destination="WebContent/resources/js" element1="WebContent/indexJS.js" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="1" stamp="1470336173079" updateReferences="true"/>
-</session>

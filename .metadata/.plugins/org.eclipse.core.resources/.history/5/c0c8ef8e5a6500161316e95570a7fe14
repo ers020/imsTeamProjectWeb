@@ -1,5 +1,0 @@
-package com.revature.aop;
-
-public class LoggingAspect {
-
-}

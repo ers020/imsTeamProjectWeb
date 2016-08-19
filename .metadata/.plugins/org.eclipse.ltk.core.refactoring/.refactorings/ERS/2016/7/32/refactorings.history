@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Encapsulate field &apos;com.revature.beans.ReimburseBean.bReceipt&apos; in &apos;com.revature.beans.ReimburseBean&apos;&#x0D;&#x0A;- Original project: &apos;ERS&apos;&#x0D;&#x0A;- Original element: &apos;com.revature.beans.ReimburseBean.bReceipt&apos;&#x0D;&#x0A;- Getter method name: &apos;getbReceipt&apos;&#x0D;&#x0A;- Setter method name: &apos;setbReceipt&apos;&#x0D;&#x0A;- Field visibility: &apos;public&apos;&#x0D;&#x0A;- Use getter and setter methods in declaring type" comments="false" declaring="true" description="Encapsulate field &apos;bReceipt&apos;" flags="589830" getter="getbReceipt" id="org.eclipse.jdt.ui.self.encapsulate" input="/src&lt;com.revature.beans{ReimburseBean.java[ReimburseBean^bReceipt" insertion="23" setter="setbReceipt" stamp="1469965684209" version="1.0" visibility="1"/>
-</session>

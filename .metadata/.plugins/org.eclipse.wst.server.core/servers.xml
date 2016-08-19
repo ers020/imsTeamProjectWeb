@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<servers>
-  <server auto-publish-setting="1" hostname="localhost" id="Oracle WebLogic Server 12c R2 (12.2.1) at localhost [mydomain]" name="Oracle WebLogic Server 12c R2 (12.2.1) at localhost [mydomain]" runtime-id="Oracle WebLogic Server 12c R2 (12.2.1)" server-type="com.bea.weblogic1221.server" server-type-id="com.bea.weblogic1221.server" start-timeout="480" stop-timeout="240" timestamp="46" weblogic_domain_path="C:\REV\wls\wls1221\wlserver\projects\domains\mydomain" weblogic_host_name="localhost" weblogic_is_remote="false" weblogic_port="7001" weblogic_use_bootprop="true" weblogic_use_config_xml="true">
-    <list key="modules" value0="spring-mvc::org.eclipse.jst.jee.server:spring-mvc::jst.web::3.0"/>
-  </server>
-  <server auto-publish-setting="2" auto-publish-time="1" configuration-id="/Servers/Tomcat v7.0 Server at localhost-config" deployDir="wtpwebapps" hostname="localhost" id="Tomcat v7.0 Server at localhost" name="Tomcat v7.0 Server at localhost" runtime-id="Apache Tomcat v7.0" server-type="org.eclipse.jst.server.tomcat.70" server-type-id="org.eclipse.jst.server.tomcat.70" start-timeout="45" stop-timeout="15" testEnvironment="true" timestamp="5">
-    <list key="modules" value0="imsTeamProjectWeb::org.eclipse.jst.jee.server:imsTeamProjectWeb::jst.web::3.0"/>
-  </server>
-</servers>

@@ -1,8 +1,0 @@
-package com.revature.annotated.beans;
-
-import org.springframework.stereotype.Service;
-
-@Service("dataService")
-public class DataService {
-	
-}

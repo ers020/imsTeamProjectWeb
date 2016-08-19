@@ -1,3 +1,0 @@
-eclipse.preferences.version=1
-module-start-timeout=300000
-runtimes=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<runtimes>\r\n  <runtime id\="Oracle WebLogic Server 12c R2 (12.2.1)" location\="C\:/REV/wls/wls1221/wlserver" name\="Oracle WebLogic Server 12c R2 (12.2.1)" runtime-type-id\="com.bea.weblogic1221" timestamp\="0"/>\r\n  <runtime id\="Apache Tomcat v7.0" location\="C\:/REV/tomcat" name\="Apache Tomcat v7.0" runtime-type-id\="org.eclipse.jst.server.tomcat.runtime.70" timestamp\="0"/>\r\n</runtimes>\r\n

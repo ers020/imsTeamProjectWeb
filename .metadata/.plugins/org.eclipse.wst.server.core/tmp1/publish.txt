@@ -1,3 +1,0 @@
-#Tomcat publish data
-#Fri Aug 19 08:48:41 EDT 2016
-org.eclipse.jst.j2ee.server\:imsTeamProject=WEB-INF/lib/IMS-1.0-SNAPSHOT.jar

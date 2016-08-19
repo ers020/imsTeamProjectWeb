@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<publish-info>
-  <server id="Oracle WebLogic Server 12c R2 (12.2.1) at localhost [mydomain]" path="publish0.dat"/>
-  <server id="Tomcat v7.0 Server at localhost" path="publish1.dat"/>
-</publish-info>

@@ -1,9 +1,0 @@
-package com.revature.data;
-
-public class DAO {
-	
-	public void insert(String str){
-		
-	}
-	
-}
