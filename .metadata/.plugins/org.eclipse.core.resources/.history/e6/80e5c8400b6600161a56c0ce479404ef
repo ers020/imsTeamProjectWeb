@@ -121,12 +121,6 @@ public class BusinessLayer {
 		
 	}
 	
-	public Set<Order> getClientOrders(int clientId){
-		Set<Order> orders = dla.getClientInvoices(clientId);
-		
-		return orders;
-	}
-	
 	////////////////////// END GENERATING REPORTS /////////////////////////////////////////////////
 	
 	

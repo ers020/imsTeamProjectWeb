@@ -11068,3 +11068,9 @@ java.lang.ClassNotFoundException: oracle.eclipse.tools.adf.view.configuration.va
 
 !ENTRY org.eclipse.m2e.logback.appender 2 0 2016-08-19 08:22:38.027
 !MESSAGE Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2016-08-19 08:48:40.173
+!MESSAGE Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2016-08-19 08:48:40.229
+!MESSAGE Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
